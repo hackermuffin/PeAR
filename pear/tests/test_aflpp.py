@@ -12,7 +12,7 @@ import gtirb
 from enum import Enum
 from typing import NamedTuple
 
-from ..utils import run_cmd, check_executables_exist
+from ..utils import run_cmd, check_executables_exist, copytree
 from .conftest import linux_only, get_gen_binary_from_pear_output
 
 # TODO: this has too much copied code from test_winafl.py.
@@ -54,7 +54,7 @@ def prepare_generic_test_binary(prog_name: str,
 
     # copy program to temp dir
     build_dir = tmp_path_factory.mktemp('build')
-    shutil.copytree(prog_dir, build_dir, dirs_exist_ok=True)
+    copytree(prog_dir, build_dir, dirs_exist_ok=True)
 
     # run build script with correct build environment
     run_cmd([build_script], working_dir=str(build_dir))

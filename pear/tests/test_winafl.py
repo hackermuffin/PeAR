@@ -12,7 +12,7 @@ import gtirb
 from enum import Enum
 from typing import NamedTuple
 
-from ..utils import run_cmd, check_executables_exist
+from ..utils import run_cmd, check_executables_exist, copytree
 from .conftest import windows_only, get_gen_binary_from_pear_output, devcmd_bat
 
 TEST_PROG_DIR = importlib.resources.files(__package__) / 'test_fuzz'
@@ -113,7 +113,7 @@ def prepare_generic_test_binary(prog_name: str,
 
     # copy program to temp dir
     build_dir = tmp_path_factory.mktemp('build')
-    shutil.copytree(prog_dir, build_dir, dirs_exist_ok=True)
+    copytree(prog_dir, build_dir, dirs_exist_ok=True)
 
     # run build script with correct build environment
     cmd = ['cmd', '/c', f'{devcmd_bat} & {build_script}']

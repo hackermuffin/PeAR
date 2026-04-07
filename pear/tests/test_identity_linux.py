@@ -9,7 +9,7 @@ from typing import Callable
 import gtirb
 import gtirb_rewriting._auxdata as _auxdata
 
-from ..utils import run_cmd
+from ..utils import run_cmd, copytree
 from ..ddisasm import ddisasm
 from .conftest import linux_only, docker_installed, get_gen_binary_from_pear_output
 
@@ -22,7 +22,7 @@ BUILD_FOO_BASE = ['gcc', '-o', BIN_NAME, 'main.c', '-Wl,--no-as-needed', '-L.', 
 def test_linux_identity_simple(tmp_path_factory: pytest.TempPathFactory,
                          ir_cache: bool):
     build_dir = tmp_path_factory.mktemp('build')
-    shutil.copytree(TEST_IDENTIY_DIR, build_dir, dirs_exist_ok=True)
+    copytree(TEST_IDENTIY_DIR, build_dir, dirs_exist_ok=True)
 
     run_cmd(BUILD_LIBFOO, working_dir=str(build_dir))
     run_cmd(BUILD_FOO_BASE, working_dir=str(build_dir))
@@ -48,7 +48,7 @@ def test_linux_identity_simple(tmp_path_factory: pytest.TempPathFactory,
 def test_linux_identity_complex(tmp_path_factory: pytest.TempPathFactory,
                          ir_cache: bool):
     build_dir = tmp_path_factory.mktemp('build')
-    shutil.copytree(TEST_IDENTIY_DIR, build_dir, dirs_exist_ok=True)
+    copytree(TEST_IDENTIY_DIR, build_dir, dirs_exist_ok=True)
 
     run_cmd(BUILD_LIBFOO, working_dir=str(build_dir))
 

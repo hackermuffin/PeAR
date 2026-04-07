@@ -11,7 +11,7 @@ import gtirb
 from enum import Enum
 from typing import NamedTuple, Tuple
 
-from ..utils import run_cmd
+from ..utils import run_cmd, copytree
 from .conftest import windows_only, get_gen_binary_from_pear_output, devcmd_bat
 
 TEST_WIN_DIR = importlib.resources.files(__package__) / 'test_identity_windows'
@@ -162,7 +162,7 @@ def build_identity_windows(tmp_path_factory: pytest.TempPathFactory,
     """
     # copy test sources
     build_dir = tmp_path_factory.mktemp('build_win_id')
-    shutil.copytree(TEST_WIN_DIR, build_dir, dirs_exist_ok=True)
+    copytree(TEST_WIN_DIR, build_dir, dirs_exist_ok=True)
 
     # build
     pair = build_variant(str(build_dir), devcmd_bat, arch, variant)

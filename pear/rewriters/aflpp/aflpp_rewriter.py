@@ -31,7 +31,7 @@ from gtirb_capstone.instructions import GtirbInstructionDecoder
 
 from ... import utils
 from ... import DUMMY_LIB_NAME
-from ...utils import run_cmd, get_codeblock_to_address_mappings, align_section, is_pie
+from ...utils import run_cmd, get_codeblock_to_address_mappings, align_section, is_pie, copytree
 from ...arch_utils.linux_utils import LinuxUtils, LinuxX64Utils, LinuxARM64Utils, SwitchData
 from ...arch_utils.windows_utils import (WindowsUtils, WindowsX64Utils, WindowsX86Utils)
 
@@ -224,7 +224,7 @@ class AFLPlusPlusRewriter(Rewriter):
         folder_name = 'instrumentation'
         orig_src = importlib.resources.files(__package__) / folder_name
         build_dir = os.path.join(working_dir, folder_name)
-        shutil.copytree(orig_src, build_dir, dirs_exist_ok=True)
+        copytree(orig_src, build_dir, dirs_exist_ok=True)
         obj_src_path = os.path.join(build_dir, 'afl-instrumentation.c')
         static_obj_fname = 'instrumentation.o'
         static_obj_path = os.path.join(working_dir, static_obj_fname)

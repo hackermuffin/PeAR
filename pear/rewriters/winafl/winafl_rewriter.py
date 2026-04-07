@@ -28,7 +28,7 @@ from gtirb_capstone.instructions import GtirbInstructionDecoder
 
 from ... import DUMMY_LIB_NAME
 from ... import utils
-from ...utils import run_cmd, check_executables_exist
+from ...utils import run_cmd, check_executables_exist, copytree
 from ...arch_utils.windows_utils import WindowsUtils, WindowsX64Utils, WindowsX86Utils
 
 from ..rewriter import Rewriter
@@ -161,7 +161,7 @@ class WinAFLRewriter(Rewriter):
         folder_name = "instrumentation"
         orig_obj_folder = importlib.resources.files(__package__) / folder_name
         obj_src_folder = os.path.join(working_dir, folder_name)
-        shutil.copytree(orig_obj_folder, obj_src_folder, dirs_exist_ok=True)
+        copytree(orig_obj_folder, obj_src_folder, dirs_exist_ok=True)
         # Build object
         obj_src_path = os.path.join(obj_src_folder, "afl-staticinstr.c")
         static_obj_fname = "afl-staticinstr.obj"
