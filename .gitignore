@@ -11,3 +11,4 @@ __pycache__/
 *.ilk
 *.proc.log
 .venv/
+pear.egg-info/
